@@ -1,35 +1,32 @@
-class Solution(_head: ListNode) {
+/**
+ * Definition for singly-linked list.
+ * class ListNode(_x: Int = 0, _next: ListNode = null) {
+ *   var next: ListNode = _next
+ *   var x: Int = _x
+ * }
+ */
+  class Solution(_head: ListNode) {
 
-    /** @param head The linked list's head.
-        Note that the head is guaranteed to be not null, so it contains at least one node. */
+    private val list = new scala.collection.mutable.ListBuffer[Int]()
+    private var current: ListNode = _head
 
-    /** Returns a random node's value. */
-    def getRandom(): Int = {
- 
-        var node=_head
-        var length=1
-        while (node.next != null)
-        {
-            length=length+1
-            node=node.next
-        }
-        node=_head
-/*        var r=new scala.util.Random()
-        for (i<-0 until r.nextInt(length))
-            {
-                if (node.next != null)
-                    node=node.next
-            }
-*/
-        
-        for (i<- 0 until scala.math.floor(math.random().toFloat*length).toInt)
-            {
-                if (node.next != null)
-                    node=node.next
-            }
-        
-        return node.x
-        
+    while (current != null) {
+      list += current.x
+      current = current.next
     }
 
-}
+    private val rand = new scala.util.Random()
+
+    def getRandom(): Int = {
+
+      val r = rand.nextInt(list.size)
+
+      list(r)
+    }
+  }
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * var obj = new Solution(head)
+ * var param_1 = obj.getRandom()
+ */
